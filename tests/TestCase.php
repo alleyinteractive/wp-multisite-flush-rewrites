@@ -1,17 +1,17 @@
 <?php
 /**
- * Create WordPress Plugin Tests: Base Test Class
+ * WP Multisite Flush Rewrite Tests: Base Test Class
  *
- * @package create-wordpress-plugin
+ * @package wp-multisite-flush-rewrite
  */
 
-namespace Alley\WP\Create_WordPress_Plugin\Tests;
+namespace Alley\WP\Multisite_Flush_Rewrite\Tests;
 
 use Mantle\Testing\Concerns\Prevent_Remote_Requests;
 use Mantle\Testkit\Test_Case as TestkitTest_Case;
 
 /**
- * Create WordPress Plugin Base Test Case
+ * WP Multisite Flush Rewrite Base Test Case
  */
 abstract class TestCase extends TestkitTest_Case {
 	use Prevent_Remote_Requests;

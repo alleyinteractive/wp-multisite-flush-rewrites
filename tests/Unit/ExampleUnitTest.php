@@ -1,11 +1,11 @@
 <?php
 /**
- * Create WordPress Plugin Tests: Example Unit Test
+ * WP Multisite Flush Rewrite Tests: Example Unit Test
  *
- * @package create-wordpress-plugin
+ * @package wp-multisite-flush-rewrite
  */
 
-namespace Alley\WP\Create_WordPress_Plugin\Tests\Unit;
+namespace Alley\WP\Multisite_Flush_Rewrite\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
 

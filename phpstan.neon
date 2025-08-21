@@ -6,10 +6,10 @@ parameters:
 	level: max
 
 	paths:
-		- blocks/
-		- entries/
+		# - blocks/
+		# - entries/
 		- src/
-		- plugin.php
+		- wp-multisite-flush-rewrite.php
 
 #    ignoreErrors:
 #        - '#PHPDoc tag @var#'

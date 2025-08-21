@@ -1,22 +1,22 @@
 <?php
 /**
- * Plugin Name: Create WordPress Plugin
- * Plugin URI: https://github.com/alleyinteractive/create-wordpress-plugin
- * Description: A skeleton WordPress plugin
+ * Plugin Name: WP Multisite Flush Rewrite
+ * Plugin URI: https://github.com/alleyinteractive/wp-multisite-flush-rewrite
+ * Description: Flush rewrite rules on a WordPress multisite.
  * Version: 0.0.0
- * Author: author_name
- * Author URI: https://github.com/alleyinteractive/create-wordpress-plugin
+ * Author: Sean Fisher
+ * Author URI: https://github.com/alleyinteractive/wp-multisite-flush-rewrite
  * Requires at least: 5.9
  * Requires PHP: 8.2
  * Tested up to: 6.7
  *
- * Text Domain: create-wordpress-plugin
+ * Text Domain: wp-multisite-flush-rewrite
  * Domain Path: /languages/
  *
- * @package create-wordpress-plugin
+ * @package wp-multisite-flush-rewrite
  */
 
-namespace Alley\WP\Create_WordPress_Plugin;
+namespace Alley\WP\Multisite_Flush_Rewrite;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -25,9 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Root directory to this plugin.
  */
-define( 'CREATE_WORDPRESS_PLUGIN_DIR', __DIR__ );
-
-/* Start Composer Loader */
+define( 'WP_MULTISITE_FLUSH_REWRITE_DIR', __DIR__ );
 
 // Check if Composer is installed (remove if Composer is not required for your plugin).
 if ( ! file_exists( __DIR__ . '/vendor/wordpress-autoload.php' ) ) {
@@ -41,7 +39,7 @@ if ( ! file_exists( __DIR__ . '/vendor/wordpress-autoload.php' ) ) {
 			function () {
 				?>
 				<div class="notice notice-error">
-					<p><?php esc_html_e( 'Composer is not installed and create-wordpress-plugin cannot load. Try using a `*-built` branch if the plugin is being loaded as a submodule.', 'create-wordpress-plugin' ); ?></p>
+					<p><?php esc_html_e( 'Composer is not installed and wp-multisite-flush-rewrite cannot load. Try using a `*-built` branch if the plugin is being loaded as a submodule.', 'wp-multisite-flush-rewrite' ); ?></p>
 				</div>
 				<?php
 			}
@@ -54,14 +52,10 @@ if ( ! file_exists( __DIR__ . '/vendor/wordpress-autoload.php' ) ) {
 	require_once __DIR__ . '/vendor/wordpress-autoload.php';
 }
 
-/* End Composer Loader */
-
 // Load the plugin's main files.
-require_once __DIR__ . '/src/assets.php';
 require_once __DIR__ . '/src/meta.php';
 require_once __DIR__ . '/src/main.php';
 
-load_scripts();
 register_post_meta_from_defs();
 register_term_meta_from_defs();
 main();

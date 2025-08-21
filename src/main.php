@@ -2,10 +2,10 @@
 /**
  * The main plugin function
  *
- * @package create-wordpress-plugin
+ * @package wp-multisite-flush-rewrite
  */
 
-namespace Alley\WP\Create_WordPress_Plugin;
+namespace Alley\WP\Multisite_Flush_Rewrite;
 
 use Alley\WP\Features\Group;
 

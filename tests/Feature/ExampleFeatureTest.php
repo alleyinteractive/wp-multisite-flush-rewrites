@@ -1,13 +1,13 @@
 <?php
 /**
- * Create WordPress Plugin Tests: Example Feature Test
+ * WP Multisite Flush Rewrite Tests: Example Feature Test
  *
- * @package create-wordpress-plugin
+ * @package wp-multisite-flush-rewrite
  */
 
-namespace Alley\WP\Create_WordPress_Plugin\Tests\Feature;
+namespace Alley\WP\Multisite_Flush_Rewrite\Tests\Feature;
 
-use Alley\WP\Create_WordPress_Plugin\Tests\TestCase;
+use Alley\WP\Multisite_Flush_Rewrite\Tests\TestCase;
 
 /**
  * A test suite for an example feature.
