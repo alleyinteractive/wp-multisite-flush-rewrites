@@ -50,7 +50,6 @@ function flush_network_rewrite_rules( ?int $network_id = null ): array {
 	foreach ( get_sites( [
 		'archived'   => 0,
 		'network_id' => $network_id,
-		'public'     => 1,
 	] ) as $site ) {
 		switch_to_blog( (int) $site->blog_id ); // phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.switch_to_blog_switch_to_blog
 

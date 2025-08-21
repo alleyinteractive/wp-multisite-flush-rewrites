@@ -3,15 +3,12 @@
  * Plugin Name: WP Multisite Flush Rewrite
  * Plugin URI: https://github.com/alleyinteractive/wp-multisite-flush-rewrite
  * Description: Flush rewrite rules on a WordPress multisite.
- * Version: 0.0.0
+ * Version: 1.0.0
  * Author: Sean Fisher
  * Author URI: https://github.com/alleyinteractive/wp-multisite-flush-rewrite
  * Requires at least: 5.9
  * Requires PHP: 8.2
- * Tested up to: 6.7
- *
- * Text Domain: wp-multisite-flush-rewrite
- * Domain Path: /languages/
+ * Tested up to: 6.8
  *
  * @package wp-multisite-flush-rewrite
  */
@@ -47,7 +44,6 @@ if ( ! file_exists( __DIR__ . '/vendor/wordpress-autoload.php' ) ) {
 	require_once __DIR__ . '/vendor/wordpress-autoload.php';
 }
 
-// Load the plugin's main files.
 require_once __DIR__ . '/src/main.php';
 
 if ( defined( 'WP_CLI' ) && WP_CLI ) {

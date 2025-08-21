@@ -1,6 +1,7 @@
 {
     "name": "alleyinteractive/wp-multisite-flush-rewrite",
     "description": "Flush rewrite rules on a WordPress multisite.",
+    "version": "1.0.0",
     "type": "wordpress-plugin",
     "keywords": [
         "alleyinteractive",
