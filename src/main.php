@@ -12,6 +12,7 @@ use Mantle\Http_Client\Pool;
 use Mantle\Http_Client\Pooled_Pending_Request;
 
 use function Mantle\Support\Helpers\collect;
+use function Mantle\Support\Helpers\mixed;
 
 /**
  * The name of the option used to store the secret token in the network.
@@ -168,4 +169,31 @@ function render_settings_page(): void {
 		</form>
 	</div>
 	<?php
+}
+
+/**
+ * Flush the rewrite rules for all sites in the network on WP-CLI.
+ *
+ * @param array<string, mixed> $args Command arguments.
+ * @param array<string, mixed> $assoc_args Command associative arguments.
+ */
+function flush_rewrite_rules_command( array $args, array $assoc_args ): never {
+	$pool = flush_network_rewrite_rules(
+		mixed( $assoc_args['network-id'] ?? get_current_network_id() )->int(),
+	);
+
+	if ( $pool === [] ) {
+		\WP_CLI::error( __( 'No sites found in the network.', 'wp-multisite-flush-rewrite' ) );
+	}
+
+	$pool = collect( $pool )->map(
+		fn ( $request, $url ): array => [
+			'url'    => $url,
+			'status' => $request->ok() ? 'Success' : sprintf( '%d: %s', $request->status(), $request->body() ?: 'Unknown error' ),
+		]
+	)->values()->all();
+
+	\WP_CLI\Utils\format_items( 'table', $pool, [ 'url', 'status' ] );
+
+	exit( 0 );
 }

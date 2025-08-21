@@ -22,11 +22,6 @@ if ( ! defined( 'ABSPATH' ) || ! is_multisite() ) {
 	exit;
 }
 
-/**
- * Root directory to this plugin.
- */
-define( 'WP_MULTISITE_FLUSH_REWRITE_DIR', __DIR__ );
-
 // Check if Composer is installed (remove if Composer is not required for your plugin).
 if ( ! file_exists( __DIR__ . '/vendor/wordpress-autoload.php' ) ) {
 	// Will also check for the presence of an already loaded Composer autoloader
@@ -54,3 +49,14 @@ if ( ! file_exists( __DIR__ . '/vendor/wordpress-autoload.php' ) ) {
 
 // Load the plugin's main files.
 require_once __DIR__ . '/src/main.php';
+
+if ( defined( 'WP_CLI' ) && WP_CLI ) {
+	\WP_CLI::add_command(
+		'multisite-flush-rewrites',
+		__NAMESPACE__ . '\flush_rewrite_rules_command',
+		[
+			'shortdesc' => __( 'Flush the rewrite rules for all sites in the network.', 'wp-multisite-flush-rewrite' ),
+			'synopsis'  => '[--network-id=<id>]',
+		]
+	);
+}
