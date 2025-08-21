@@ -41,13 +41,6 @@
             "Alley\\WP\\Multisite_Flush_Rewrite\\Tests\\": "tests"
         }
     },
-    "extra": {
-        "wordpress-autoloader": {
-            "autoload": {
-                "Alley\\WP\\Multisite_Flush_Rewrite\\": "src"
-            }
-        }
-    },
     "minimum-stability": "dev",
     "prefer-stable": true,
     "scripts": {
