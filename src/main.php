@@ -15,6 +15,8 @@ use function Mantle\Support\Helpers\collect;
 
 /**
  * The name of the option used to store the secret token in the network.
+ *
+ * The secret is only stored temporarily and is used to verify requests.
  */
 const SECRET_OPTION_NAME = 'wp_multisite_flush_rewrite_secret';
 
@@ -61,9 +63,7 @@ function flush_network_rewrite_rules( ?int $network_id = null ): array {
 			fn ( $url, $blog ): Pooled_Pending_Request => $pool // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable
 				->as( $blog )
 				->as_form()
-				->post( $url, [
-					'secret' => $secret,
-				] )
+				->post( $url, [ 'secret' => $secret ] )
 		)->all()
 	);
 
