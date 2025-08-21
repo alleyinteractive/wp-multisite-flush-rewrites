@@ -18,5 +18,6 @@
   <php>
     <env name="MANTLE_USE_SQLITE" value="true" />
     <env name="WP_SKIP_DB_CREATE" value="true" />
+    <env name="WP_MULTISITE" value="1" />
   </php>
 </phpunit>

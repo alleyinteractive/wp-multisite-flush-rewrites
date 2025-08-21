@@ -58,6 +58,7 @@ function flush_network_rewrite_rules( ?int $network_id = null ): array {
 
 		restore_current_blog();
 	}
+	dd($requests);
 
 	$requests = Factory::create()->pool(
 		fn ( Pool $pool ) => collect( $requests )->map( // @phpstan-ignore-line argument.type
