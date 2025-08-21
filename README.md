@@ -1,6 +1,6 @@
 # WP Multisite Flush Rewrite
 
-[![Testing Suite](https://github.com/alleyinteractive/wp-multisite-flush-rewrite/actions/workflows/all-pr-tests.yml/badge.svg)](https://github.com/alleyinteractive/wp-multisite-flush-rewrite/actions/workflows/all-pr-tests.yml)
+[![Testing Suite](https://github.com/alleyinteractive/wp-multisite-flush-rewrites/actions/workflows/all-pr-tests.yml/badge.svg)](https://github.com/alleyinteractive/wp-multisite-flush-rewrites/actions/workflows/all-pr-tests.yml)
 
 Flush rewrite rules easily for all sites on a WordPress multisite.
 
@@ -9,7 +9,7 @@ Flush rewrite rules easily for all sites on a WordPress multisite.
 You can install the package via Composer:
 
 ```bash
-composer require alleyinteractive/wp-multisite-flush-rewrite
+composer require alleyinteractive/wp-multisite-flush-rewrites
 ```
 
 ## Usage

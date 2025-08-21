@@ -1,5 +1,5 @@
 {
-    "name": "alleyinteractive/wp-multisite-flush-rewrite",
+    "name": "alleyinteractive/wp-multisite-flush-rewrites",
     "description": "Flush rewrite rules on a WordPress multisite.",
     "version": "1.0.0",
     "type": "wordpress-plugin",
@@ -7,7 +7,7 @@
         "alleyinteractive",
         "wp-multisite-flush-rewrite"
     ],
-    "homepage": "https://github.com/alleyinteractive/wp-multisite-flush-rewrite",
+    "homepage": "https://github.com/alleyinteractive/wp-multisite-flush-rewrites",
     "license": "GPL-2.0-or-later",
     "authors": [
         {

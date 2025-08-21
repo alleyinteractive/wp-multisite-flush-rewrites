@@ -1,11 +1,11 @@
 <?php
 /**
- * Plugin Name: WP Multisite Flush Rewrite
- * Plugin URI: https://github.com/alleyinteractive/wp-multisite-flush-rewrite
+ * Plugin Name: WP Multisite Flush Rewrites
+ * Plugin URI: https://github.com/alleyinteractive/wp-multisite-flush-rewrites
  * Description: Flush rewrite rules on a WordPress multisite.
  * Version: 1.0.0
  * Author: Sean Fisher
- * Author URI: https://github.com/alleyinteractive/wp-multisite-flush-rewrite
+ * Author URI: https://github.com/alleyinteractive/wp-multisite-flush-rewrites
  * Requires at least: 5.9
  * Requires PHP: 8.2
  * Tested up to: 6.8
@@ -48,7 +48,7 @@ require_once __DIR__ . '/src/main.php';
 
 if ( defined( 'WP_CLI' ) && WP_CLI ) {
 	\WP_CLI::add_command(
-		'multisite-flush-rewrites',
+		'multisite-flush-rewrite',
 		__NAMESPACE__ . '\flush_rewrite_rules_command',
 		[
 			'shortdesc' => __( 'Flush the rewrite rules for all sites in the network.', 'wp-multisite-flush-rewrite' ),
