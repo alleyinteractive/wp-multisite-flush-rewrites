@@ -14,51 +14,81 @@ use Mantle\Http_Client\Pooled_Pending_Request;
 use function Mantle\Support\Helpers\collect;
 
 /**
+ * The name of the option used to store the secret token in the network.
+ */
+const SECRET_OPTION_NAME = 'wp_multisite_flush_rewrite_secret';
+
+/**
  * Flush the network rewrite rules.
  *
  * Go through each site and make a request to flush the rewrite rules for each.
  * This does not use switch_to_blog() but instead makes an individual request to
  * each site's admin-ajax.php.
  *
+ * @param int|null $network_id The network ID to flush rewrite rules for. If null, the current network ID is used.
  * @return array<int|string, \Mantle\Http_Client\Response>
  */
-function flush_network_rewrite_rules(): array {
+function flush_network_rewrite_rules( ?int $network_id = null ): array {
+	if ( is_null( $network_id ) ) {
+		$network_id = get_current_network_id();
+	}
+
 	$requests = [];
 
+	// Ensure the secret token is set for the site.
+	$secret = get_network_option( $network_id, SECRET_OPTION_NAME );
+
+	if ( empty( $secret ) ) {
+		$secret = md5( wp_generate_password( 32, false ) );
+
+		update_network_option( $network_id, SECRET_OPTION_NAME, $secret );
+	}
+
 	foreach ( get_sites( [
-		'archived' => 0,
-		'public'   => 1,
+		'archived'   => 0,
+		'network_id' => $network_id,
+		'public'     => 1,
 	] ) as $site ) {
 		switch_to_blog( (int) $site->blog_id ); // phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.switch_to_blog_switch_to_blog
 
-		// Ensure the secret token is set for the site.
-		$secret = get_option( 'wp_multisite_flush_rewrite_secret' );
-
-		if ( empty( $secret ) ) {
-			$secret = md5( wp_generate_password( 32, false ) );
-
-			update_option( 'wp_multisite_flush_rewrite_secret', $secret, false );
-		}
-
-		$requests[ home_url() ] = [
-			'url'    => admin_url( 'admin-ajax.php?action=wp_multisite_flush_rewrite_rules' ),
-			'secret' => $secret,
-		];
+		$requests[ home_url() ] = admin_url( 'admin-ajax.php?action=wp_multisite_flush_rewrite_rules' );
 
 		restore_current_blog();
 	}
 
-	return Factory::create()->pool(
+	$requests = Factory::create()->pool(
 		fn ( Pool $pool ) => collect( $requests )->map( // @phpstan-ignore-line argument.type
-			fn ( $request, $blog ): Pooled_Pending_Request => $pool // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable
+			fn ( $url, $blog ): Pooled_Pending_Request => $pool // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable
 				->as( $blog )
 				->as_form()
-				->post( $request['url'], [
-					'secret' => $request['secret'],
+				->post( $url, [
+					'secret' => $secret,
 				] )
 		)->all()
 	);
+
+	delete_network_option( $network_id, SECRET_OPTION_NAME );
+
+	return $requests;
 }
+
+/**
+ * Handle the AJAX request to flush the rewrite rules.
+ */
+function handle_ajax_flush_rewrite_rules(): void {
+	if (
+		! isset( $_POST['secret'] ) // phpcs:ignore WordPress.Security.NonceVerification.Missing
+		// @phpstan-ignore-next-line argument.type
+		|| sanitize_text_field( wp_unslash( $_POST['secret'] ) ) !== get_network_option( get_current_network_id(), SECRET_OPTION_NAME ) // phpcs:ignore WordPress.Security.NonceVerification.Missing
+	) {
+		wp_send_json_error( 'Invalid secret token.', 403 );
+	}
+
+	flush_rewrite_rules(); // phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.flush_rewrite_rules_flush_rewrite_rules
+
+	wp_send_json_success();
+}
+add_action( 'wp_ajax_nopriv_wp_multisite_flush_rewrite_rules', __NAMESPACE__ . '\handle_ajax_flush_rewrite_rules' );
 
 /**
  * Register a network admin page under settings that will display the flush
