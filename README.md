@@ -1,4 +1,4 @@
-# WP Multisite Flush Rewrite
+# WP Multisite Flush Rewrites
 
 [![Testing Suite](https://github.com/alleyinteractive/wp-multisite-flush-rewrites/actions/workflows/all-pr-tests.yml/badge.svg)](https://github.com/alleyinteractive/wp-multisite-flush-rewrites/actions/workflows/all-pr-tests.yml)
 
