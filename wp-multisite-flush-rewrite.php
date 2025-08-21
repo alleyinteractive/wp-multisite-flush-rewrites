@@ -18,7 +18,7 @@
 
 namespace Alley\WP\Multisite_Flush_Rewrite;
 
-if ( ! defined( 'ABSPATH' ) ) {
+if ( ! defined( 'ABSPATH' ) || ! is_multisite() ) {
 	exit;
 }
 
@@ -53,9 +53,4 @@ if ( ! file_exists( __DIR__ . '/vendor/wordpress-autoload.php' ) ) {
 }
 
 // Load the plugin's main files.
-require_once __DIR__ . '/src/meta.php';
 require_once __DIR__ . '/src/main.php';
-
-register_post_meta_from_defs();
-register_term_meta_from_defs();
-main();
