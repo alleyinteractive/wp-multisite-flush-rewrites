@@ -8,10 +8,12 @@
 namespace Alley\WP\Multisite_Flush_Rewrite\Tests\Feature;
 
 use Alley\WP\Multisite_Flush_Rewrite\Tests\TestCase;
-use Mantle\Testing\Concerns\Prevent_Remote_Requests;
+use Mantle\Http_Client\Request;
 
 use function Alley\WP\Multisite_Flush_Rewrite\flush_network_rewrite_rules;
 use function Mantle\Testing\mock_http_response;
+
+use const Alley\WP\Multisite_Flush_Rewrite\FLUSH_REWRITES_SECRET_OPTION_NAME;
 
 /**
  * A test suite for the plugin.
@@ -52,5 +54,11 @@ class PluginTest extends TestCase {
 		$this->assertRequestSent( 'http://example.test/wp-admin/admin-ajax.php?action=wp_multisite_flush_rewrite_rules', 1 );
 		$this->assertRequestSent( 'http://another.test/wp-admin/admin-ajax.php?action=wp_multisite_flush_rewrite_rules', 1 );
 		$this->assertRequestSent( 'http://fail.test/wp-admin/admin-ajax.php?action=wp_multisite_flush_rewrite_rules', 1 );
+
+		// Enforce that a secret was passed.
+		$this->assertRequestSent( fn ( Request $request ): bool => ! empty( $request->get( 'body.secret' ) ) );
+
+		// Enforce that the secret is cleared after use.
+		$this->assertEmpty( get_network_option( null, FLUSH_REWRITES_SECRET_OPTION_NAME ) );
 	}
 }

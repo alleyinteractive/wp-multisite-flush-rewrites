@@ -19,7 +19,7 @@ use function Mantle\Support\Helpers\mixed;
  *
  * The secret is only stored temporarily and is used to verify requests.
  */
-const SECRET_OPTION_NAME = 'wp_multisite_flush_rewrite_secret';
+const FLUSH_REWRITES_SECRET_OPTION_NAME = 'wp_multisite_flush_rewrite_secret';
 
 /**
  * Flush the network rewrite rules.
@@ -39,12 +39,12 @@ function flush_network_rewrite_rules( ?int $network_id = null ): array {
 	$requests = [];
 
 	// Ensure the secret token is set for the site.
-	$secret = get_network_option( $network_id, SECRET_OPTION_NAME );
+	$secret = get_network_option( $network_id, FLUSH_REWRITES_SECRET_OPTION_NAME );
 
 	if ( empty( $secret ) ) {
 		$secret = md5( wp_generate_password( 32, false ) );
 
-		update_network_option( $network_id, SECRET_OPTION_NAME, $secret );
+		update_network_option( $network_id, FLUSH_REWRITES_SECRET_OPTION_NAME, $secret );
 	}
 
 	foreach ( get_sites( [
@@ -67,7 +67,7 @@ function flush_network_rewrite_rules( ?int $network_id = null ): array {
 		)->all()
 	);
 
-	delete_network_option( $network_id, SECRET_OPTION_NAME );
+	delete_network_option( $network_id, FLUSH_REWRITES_SECRET_OPTION_NAME );
 
 	return $requests;
 }
@@ -79,7 +79,7 @@ function handle_ajax_flush_rewrite_rules(): void {
 	if (
 		! isset( $_POST['secret'] ) // phpcs:ignore WordPress.Security.NonceVerification.Missing
 		// @phpstan-ignore-next-line argument.type
-		|| sanitize_text_field( wp_unslash( $_POST['secret'] ) ) !== get_network_option( get_current_network_id(), SECRET_OPTION_NAME ) // phpcs:ignore WordPress.Security.NonceVerification.Missing
+		|| sanitize_text_field( wp_unslash( $_POST['secret'] ) ) !== get_network_option( get_current_network_id(), FLUSH_REWRITES_SECRET_OPTION_NAME ) // phpcs:ignore WordPress.Security.NonceVerification.Missing
 	) {
 		wp_send_json_error( 'Invalid secret token.', 403 );
 	}
