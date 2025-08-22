@@ -13,15 +13,5 @@ parameters:
 		- %rootDir%/../../php-stubs/wp-cli-stubs/wp-cli-tools-stubs.php
 
 	paths:
-		# - blocks/
-		# - entries/
 		- src/
-		- wp-multisite-flush-rewrite.php
-
-#    ignoreErrors:
-#        - '#PHPDoc tag @var#'
-#
-#    excludePaths:
-#        - ./*/*/FileToBeExcluded.php
-#
-#    checkMissingIterableValueType: false
+		- wp-multisite-flush-rewrites.php
