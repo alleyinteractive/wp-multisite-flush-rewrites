@@ -1,31 +1,23 @@
 <?php
 /**
- * Plugin Name: WP Multisite Flush Rewrite
- * Plugin URI: https://github.com/alleyinteractive/wp-multisite-flush-rewrite
+ * Plugin Name: WP Multisite Flush Rewrites
+ * Plugin URI: https://github.com/alleyinteractive/wp-multisite-flush-rewrites
  * Description: Flush rewrite rules on a WordPress multisite.
- * Version: 0.0.0
+ * Version: 1.0.0
  * Author: Sean Fisher
- * Author URI: https://github.com/alleyinteractive/wp-multisite-flush-rewrite
+ * Author URI: https://github.com/alleyinteractive/wp-multisite-flush-rewrites
  * Requires at least: 5.9
  * Requires PHP: 8.2
- * Tested up to: 6.7
- *
- * Text Domain: wp-multisite-flush-rewrite
- * Domain Path: /languages/
+ * Tested up to: 6.8
  *
  * @package wp-multisite-flush-rewrite
  */
 
 namespace Alley\WP\Multisite_Flush_Rewrite;
 
-if ( ! defined( 'ABSPATH' ) ) {
+if ( ! defined( 'ABSPATH' ) || ! is_multisite() ) {
 	exit;
 }
-
-/**
- * Root directory to this plugin.
- */
-define( 'WP_MULTISITE_FLUSH_REWRITE_DIR', __DIR__ );
 
 // Check if Composer is installed (remove if Composer is not required for your plugin).
 if ( ! file_exists( __DIR__ . '/vendor/wordpress-autoload.php' ) ) {
@@ -52,10 +44,15 @@ if ( ! file_exists( __DIR__ . '/vendor/wordpress-autoload.php' ) ) {
 	require_once __DIR__ . '/vendor/wordpress-autoload.php';
 }
 
-// Load the plugin's main files.
-require_once __DIR__ . '/src/meta.php';
 require_once __DIR__ . '/src/main.php';
 
-register_post_meta_from_defs();
-register_term_meta_from_defs();
-main();
+if ( defined( 'WP_CLI' ) && WP_CLI ) {
+	\WP_CLI::add_command(
+		'multisite-flush-rewrite',
+		__NAMESPACE__ . '\flush_rewrite_rules_command',
+		[
+			'shortdesc' => __( 'Flush the rewrite rules for all sites in the network.', 'wp-multisite-flush-rewrite' ),
+			'synopsis'  => '[--network-id=<id>]',
+		]
+	);
+}

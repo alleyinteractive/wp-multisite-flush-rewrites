@@ -22,3 +22,4 @@ tests
 tests
 Thumbs.db
 wp-cli.local.yml
+screenshots/*
