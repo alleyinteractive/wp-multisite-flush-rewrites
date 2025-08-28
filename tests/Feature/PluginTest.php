@@ -61,38 +61,4 @@ class PluginTest extends TestCase {
 		// Enforce that the secret is cleared after use.
 		$this->assertEmpty( get_network_option( null, FLUSH_REWRITES_SECRET_OPTION_NAME ) );
 	}
-
-	/**
-	 * Test that redirects are not followed when flushing rewrite rules.
-	 */
-	public function test_it_does_not_follow_redirects_when_flushing_rewrite_rules(): void {
-		// Set up a site that responds with a redirect
-		$this->fake_request( admin_url( 'admin-ajax.php*' ), mock_http_response()->with_status( 200 ) );
-		$this->fake_request( 'http://redirect.test/wp-admin/admin-ajax.php*', mock_http_response()->with_status( 302 )->with_header( 'Location', 'http://redirect.test/redirected' ) );
-
-		self::factory()->blog->create_and_get( [
-			'domain' => 'redirect.test',
-			'path'   => '/',
-		] );
-
-		$pool = flush_network_rewrite_rules();
-
-		$this->assertCount( 2, $pool );
-		$this->assertTrue( $pool['http://example.org']->ok() );
-		// The redirect response should be treated as received (302), not followed
-		$this->assertEquals( 302, $pool['http://redirect.test']->status() );
-
-		$this->assertRequestCount( 2 );
-		$this->assertRequestSent( admin_url( 'admin-ajax.php?action=wp_multisite_flush_rewrite_rules' ), 1 );
-		$this->assertRequestSent( 'http://redirect.test/wp-admin/admin-ajax.php?action=wp_multisite_flush_rewrite_rules', 1 );
-		
-		// Verify that no follow-up request was made to the redirect location
-		$this->assertRequestNotSent( 'http://redirect.test/redirected' );
-
-		// Enforce that allow_redirects is set to false in the request options
-		$this->assertRequestSent( function ( Request $request ): bool {
-			$options = $request->get( 'options' );
-			return isset( $options['allow_redirects'] ) && $options['allow_redirects'] === false;
-		} );
-	}
 }

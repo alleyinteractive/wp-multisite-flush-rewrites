@@ -65,7 +65,7 @@ function flush_network_rewrite_rules( ?int $network_id = null ): array {
 			fn ( $url, $blog ): Pooled_Pending_Request => $pool // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable
 				->as( $blog )
 				->as_form()
-				->withOptions( [ 'allow_redirects' => false ] )
+				->without_redirecting()
 				->post( $url, [ 'secret' => $secret ] )
 		)->all()
 	);
