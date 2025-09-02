@@ -1,6 +1,6 @@
 # WP Multisite Flush Rewrites
 
-[![Testing Suite](https://github.com/alleyinteractive/wp-multisite-flush-rewrites/actions/workflows/all-pr-tests.yml/badge.svg)](https://github.com/alleyinteractive/wp-multisite-flush-rewrites/actions/workflows/all-pr-tests.yml)
+[![All Pull Request Tests](https://github.com/alleyinteractive/wp-multisite-flush-rewrites/actions/workflows/all-pr-tests.yml/badge.svg?branch=develop)](https://github.com/alleyinteractive/wp-multisite-flush-rewrites/actions/workflows/all-pr-tests.yml)
 
 Flush rewrite rules easily for all sites on a WordPress multisite.
 
