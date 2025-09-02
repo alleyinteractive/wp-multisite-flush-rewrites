@@ -52,7 +52,7 @@ require_once __DIR__ . '/src/main.php';
 
 if ( defined( 'WP_CLI' ) && WP_CLI ) {
 	\WP_CLI::add_command(
-		'multisite-flush-rewrite',
+		'multisite-flush-rewrites',
 		__NAMESPACE__ . '\flush_rewrite_rules_command',
 		[
 			'shortdesc' => __( 'Flush the rewrite rules for all sites in the network.', 'wp-multisite-flush-rewrite' ),
