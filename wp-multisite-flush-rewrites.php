@@ -3,7 +3,7 @@
  * Plugin Name: WP Multisite Flush Rewrites
  * Plugin URI: https://github.com/alleyinteractive/wp-multisite-flush-rewrites
  * Description: Flush rewrite rules on a WordPress multisite.
- * Version: 1.0.1
+ * Version: 1.0.2
  * Author: Sean Fisher
  * Author URI: https://github.com/alleyinteractive/wp-multisite-flush-rewrites
  * Requires at least: 5.9
