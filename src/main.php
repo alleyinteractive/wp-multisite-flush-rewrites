@@ -137,7 +137,7 @@ function render_settings_page(): void {
 						/* translators: 1: blog name, 2: error message */
 						esc_html__( 'Failed to flush rewrite rules for %1$s: %2$s', 'wp-multisite-flush-rewrite' ),
 						"<code>{$blog}</code>",
-						"{$request->status()}: " . ( $request->body() ?: 'Unknown error' ),
+						"{$request->status()}: " . ( wp_strip_all_tags( $request->body() ) ?: 'Unknown error' ),
 					),
 					[
 						'type' => 'error',
