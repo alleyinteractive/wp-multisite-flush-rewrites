@@ -2,6 +2,10 @@
 
 All notable changes to `WP Multisite Flush Rewrite` will be documented in this file.
 
+## 1.0.3
+
+- No changes, re-releasing to bump `mantle-framework/http-client` and `mantle-framework/support` dependencies.
+
 ## 1.0.2
 
 - Fix CLI command name.
