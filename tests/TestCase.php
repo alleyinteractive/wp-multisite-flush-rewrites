@@ -5,6 +5,8 @@
  * @package wp-multisite-flush-rewrite
  */
 
+declare(strict_types=1);
+
 namespace Alley\WP\Multisite_Flush_Rewrite\Tests;
 
 use Mantle\Testing\Concerns\Prevent_Remote_Requests;

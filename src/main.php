@@ -32,9 +32,7 @@ const FLUSH_REWRITES_SECRET_OPTION_NAME = 'wp_multisite_flush_rewrite_secret';
  * @return array<int|string, \Mantle\Http_Client\Response>
  */
 function flush_network_rewrite_rules( ?int $network_id = null ): array {
-	if ( is_null( $network_id ) ) {
-		$network_id = get_current_network_id();
-	}
+	$network_id ??= get_current_network_id();
 
 	$requests = [];
 
