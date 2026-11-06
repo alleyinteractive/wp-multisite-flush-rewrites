@@ -22,11 +22,11 @@
         "mantle-framework/support": "^1.12"
     },
     "require-dev": {
-        "alleyinteractive/alley-coding-standards": "^2.0",
-        "mantle-framework/testkit": "^1.4",
+        "alleyinteractive/alley-coding-standards": "^2.6",
+        "mantle-framework/testkit": "^1.22.2",
         "php-stubs/wp-cli-stubs": "^2.12",
-        "rector/rector": "^2.0",
-        "szepeviktor/phpstan-wordpress": "^2.0"
+        "rector/rector": "^2.8.4",
+        "szepeviktor/phpstan-wordpress": "^2.0.4"
     },
     "config": {
         "allow-plugins": {
