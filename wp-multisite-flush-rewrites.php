@@ -7,8 +7,8 @@
  * Author: Sean Fisher
  * Author URI: https://github.com/alleyinteractive/wp-multisite-flush-rewrites
  * Requires at least: 5.9
- * Requires PHP: 8.2
- * Tested up to: 6.8
+ * Requires PHP: 8.4
+ * Tested up to: 7.1
  *
  * @package wp-multisite-flush-rewrite
  */
