@@ -1,7 +1,7 @@
 {
     "name": "alleyinteractive/wp-multisite-flush-rewrites",
     "description": "Flush rewrite rules on a WordPress multisite.",
-    "version": "1.0.3",
+    "version": "1.1.0",
     "type": "wordpress-plugin",
     "keywords": [
         "alleyinteractive",
@@ -16,17 +16,17 @@
         }
     ],
     "require": {
-        "php": "^8.2",
+        "php": "^8.3",
         "alleyinteractive/composer-wordpress-autoloader": "^1.0",
         "mantle-framework/http-client": "^1.12",
         "mantle-framework/support": "^1.12"
     },
     "require-dev": {
-        "alleyinteractive/alley-coding-standards": "^2.0",
-        "mantle-framework/testkit": "^1.4",
+        "alleyinteractive/alley-coding-standards": "^2.6",
+        "mantle-framework/testkit": "^1.22.2",
         "php-stubs/wp-cli-stubs": "^2.12",
-        "rector/rector": "^2.0",
-        "szepeviktor/phpstan-wordpress": "^2.0"
+        "rector/rector": "^2.8.4",
+        "szepeviktor/phpstan-wordpress": "^2.0.4"
     },
     "config": {
         "allow-plugins": {
